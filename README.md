@@ -16,19 +16,19 @@ The Project is Based on MVVM and Clean-Architecture with consideration of SOLID 
 2. app : which has all app related stuff router, dependancy injection(di).
 3. modules : total app modules/feautues ex: onboarding,auth and home etc.
             Each module has below folders based on  MVVM architecture. 
-            -- models
-            -- entities
-            -- usecases
-            -- repositories
-            -- datasources
-            -- screens
-            -- widgets
-            -- viewmodels 
+            - models
+            - entities
+            - usecases
+            - repositories
+            - datasources
+            - screens
+            - widgets
+            - viewmodels 
 
 All above folders all 3 modules , they are Data, Domain and Presenation layers.
 
 
-**Data:** ## The data layer serves as a bridge between the domain layer and the presentation layer, supplying data through implementations of data sources, repositories, and models.
+**Data:** The data layer serves as a bridge between the domain layer and the presentation layer, supplying data through implementations of data sources, repositories, and models.
 
 **Domain:** The domain layer encapsulates the core business logic and rules, acting as an intermediary between the data layer and presentation layer to ensure separation of concerns and maintain a clean, business-centric architecture. 
 
@@ -43,7 +43,7 @@ All above folders all 3 modules , they are Data, Domain and Presenation layers.
 
  **Dalayya Kalla**
 
-- **LinkedIn**: https://www.linkedin.com/in/marzbani/
+- **LinkedIn**: https://www.linkedin.com/in/dalayya-kalla-4b11a059/
 - **Email**: [dalu547@gmail.com]()
 
 

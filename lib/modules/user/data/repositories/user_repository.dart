@@ -1,4 +1,4 @@
-import 'package:template/modules/user/entities/user_entity.dart';
+import 'package:template/modules/user/domain/entities/user_entity.dart';
 
 abstract class UserRepository {
   Future<UserEntity> getUser(int id);

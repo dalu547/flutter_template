@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:template/modules/user/entities/user_entity.dart';
-import 'package:template/modules/user/usecases/get_user_usecase.dart';
+import 'package:template/modules/user/domain/entities/user_entity.dart';
+import 'package:template/modules/user/domain/usecases/get_user_usecase.dart';
 
 class UserViewModel extends ChangeNotifier {
   final GetUserUseCase getUserUseCase;

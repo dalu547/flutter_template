@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:template/modules/user/entities/user_entity.dart';
+import 'package:template/modules/user/domain/entities/user_entity.dart';
 
 class UserCard extends StatelessWidget {
   final UserEntity user;

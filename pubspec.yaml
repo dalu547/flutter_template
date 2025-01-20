@@ -24,6 +24,8 @@ dependencies:
   dio: ^5.7.0
   internet_connection_checker: ^3.0.1
   pretty_dio_logger: ^1.4.0
+  json_annotation: ^4.9.0
+
 
   #utils 
   logger: ^2.5.0
@@ -32,10 +34,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  retrofit_generator: ^9.1.7  
+  build_runner: ^2.4.14
+  json_serializable: ^6.9.3
+   
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # The following section is specific to Flutter packages.
 flutter:

@@ -10,7 +10,7 @@ class AppLogger {
       lineLength: 120,
       colors: true,
       printEmojis: true,
-      dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
+      // dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
     ),
   );
 

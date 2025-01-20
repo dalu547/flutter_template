@@ -33,6 +33,7 @@ class ErrorHandler implements Exception {
     }
   }
 
+  //Handlling dio client errors/exceptions.(From API response)
   Failure _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:

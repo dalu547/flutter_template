@@ -27,8 +27,7 @@ TextStyle getLightStyle(
 }
 // bold text style
 
-TextStyle getBoldStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
+TextStyle getBoldStyle({double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(
       fontSize, FontConstants.fontFamily, FontWeightManager.bold, color);
 }
@@ -41,7 +40,6 @@ TextStyle getSemiBoldStyle(
       fontSize, FontConstants.fontFamily, FontWeightManager.semiBold, color);
 }
 
-
 // medium text style
 
 TextStyle getMediumStyle(
@@ -49,13 +47,3 @@ TextStyle getMediumStyle(
   return _getTextStyle(
       fontSize, FontConstants.fontFamily, FontWeightManager.medium, color);
 }
-
-
-
-
-
-
-
-
-
-

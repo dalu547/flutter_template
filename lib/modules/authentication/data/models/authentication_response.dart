@@ -1,20 +1,9 @@
-import 'dart:convert';
-
-import 'package:json_annotation/json_annotation.dart';
-
 import 'package:template/core/base/base_response.dart';
 
-@JsonSerializable()
 class AuthenticationResponse extends BaseResponse {
-  @JsonKey(name: "email")
   String email;
-
-  @JsonKey(name: "name")
   String name;
-
-  @JsonKey(name: "id")
-  String id;
-
+  int id;
   AuthenticationResponse({
     required this.email,
     required this.name,
@@ -24,7 +13,7 @@ class AuthenticationResponse extends BaseResponse {
   AuthenticationResponse copyWith({
     String? email,
     String? name,
-    String? id,
+    int? id,
   }) {
     return AuthenticationResponse(
       email: email ?? this.email,
@@ -33,7 +22,7 @@ class AuthenticationResponse extends BaseResponse {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'email': email,
       'name': name,
@@ -41,18 +30,13 @@ class AuthenticationResponse extends BaseResponse {
     };
   }
 
-  factory AuthenticationResponse.fromMap(Map<String, dynamic> map) {
+  factory AuthenticationResponse.fromJson(Map<String, dynamic> map) {
     return AuthenticationResponse(
       email: map['email'] ?? '',
       name: map['name'] ?? '',
-      id: map['id'] ?? '',
+      id: map['id']?.toInt() ?? 0,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory AuthenticationResponse.fromJson(String source) =>
-      AuthenticationResponse.fromMap(json.decode(source));
 
   @override
   String toString() =>

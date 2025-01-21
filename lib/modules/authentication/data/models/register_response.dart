@@ -1,21 +1,23 @@
 import 'package:template/core/base/base_response.dart';
+import 'package:template/modules/authentication/domain/entities/register_entity.dart';
 
-class AuthenticationResponse extends BaseResponse {
+class RegisterResponse extends BaseResponse {
   String email;
   String name;
   int id;
-  AuthenticationResponse({
+
+  RegisterResponse({
     required this.email,
     required this.name,
     required this.id,
   });
 
-  AuthenticationResponse copyWith({
+  RegisterResponse copyWith({
     String? email,
     String? name,
     int? id,
   }) {
-    return AuthenticationResponse(
+    return RegisterResponse(
       email: email ?? this.email,
       name: name ?? this.name,
       id: id ?? this.id,
@@ -30,8 +32,8 @@ class AuthenticationResponse extends BaseResponse {
     };
   }
 
-  factory AuthenticationResponse.fromJson(Map<String, dynamic> map) {
-    return AuthenticationResponse(
+  factory RegisterResponse.fromJson(Map<String, dynamic> map) {
+    return RegisterResponse(
       email: map['email'] ?? '',
       name: map['name'] ?? '',
       id: map['id']?.toInt() ?? 0,
@@ -46,7 +48,7 @@ class AuthenticationResponse extends BaseResponse {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is AuthenticationResponse &&
+    return other is RegisterResponse &&
         other.email == email &&
         other.name == name &&
         other.id == id;
@@ -54,4 +56,13 @@ class AuthenticationResponse extends BaseResponse {
 
   @override
   int get hashCode => email.hashCode ^ name.hashCode ^ id.hashCode;
+
+  // Add this function to map the response to the entity
+  RegisterEntity toEntity() {
+    return RegisterEntity(
+      email: email,
+      name: name,
+      id: id,
+    );
+  }
 }

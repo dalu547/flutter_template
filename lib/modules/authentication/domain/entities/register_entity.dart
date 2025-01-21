@@ -1,9 +1,9 @@
-class LoginEntity {
+class RegisterEntity {
   final String email;
   final String name;
   final int id;
 
-  LoginEntity({
+  RegisterEntity({
     required this.email,
     required this.name,
     required this.id,

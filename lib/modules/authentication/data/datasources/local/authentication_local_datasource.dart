@@ -1,5 +1,5 @@
 import 'package:template/core/network/error_handler.dart';
-import 'package:template/modules/authentication/data/models/authentication_response.dart';
+import 'package:template/modules/authentication/data/models/login_response.dart';
 
 const CACHE_HOME_KEY = "CACHE_HOME_KEY";
 const CACHE_HOME_INTERVAL = 60 * 1000; // 1 MINUTE IN MILLIS
@@ -7,22 +7,22 @@ const CACHE_HOME_INTERVAL = 60 * 1000; // 1 MINUTE IN MILLIS
 const CACHE_STORE_DETAILS_KEY = "CACHE_STORE_DETAILS_KEY";
 const CACHE_STORE_DETAILS_INTERVAL = 60 * 1000; // 30s in millis
 
-abstract class LocalDataSource {
+abstract class AuthenticationLocalDatasource {
   void clearCache();
 
   void removeFromCache(String key);
 
-  Future<AuthenticationResponse> getUsereDetails();
+  Future<LoginResponse> getUsereDetails();
 
-  Future<void> saveUserDetailsToCache(AuthenticationResponse userDetails);
+  Future<void> saveUserDetailsToCache(LoginResponse userDetails);
 }
 
-class LocalDataSourceImplementer implements LocalDataSource {
+class LocalDataSourceImpl implements AuthenticationLocalDatasource {
   // run time cache
   Map<String, CachedItem> cacheMap = {};
 
   @override
-  Future<AuthenticationResponse> getUsereDetails() async {
+  Future<LoginResponse> getUsereDetails() async {
     CachedItem? cachedItem = cacheMap[CACHE_STORE_DETAILS_KEY];
 
     if (cachedItem != null &&
@@ -34,8 +34,7 @@ class LocalDataSourceImplementer implements LocalDataSource {
   }
 
   @override
-  Future<void> saveUserDetailsToCache(
-      AuthenticationResponse userDetails) async {
+  Future<void> saveUserDetailsToCache(LoginResponse userDetails) async {
     cacheMap[CACHE_STORE_DETAILS_KEY] = CachedItem(userDetails);
   }
 

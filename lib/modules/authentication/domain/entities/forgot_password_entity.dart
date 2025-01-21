@@ -1,9 +1,9 @@
-class LoginEntity {
+class ForgotPasswordEntity {
   final String email;
   final String name;
   final int id;
 
-  LoginEntity({
+  ForgotPasswordEntity({
     required this.email,
     required this.name,
     required this.id,

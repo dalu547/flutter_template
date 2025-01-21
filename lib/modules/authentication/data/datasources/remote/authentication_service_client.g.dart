@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'authentication_apis.dart';
+part of 'authentication_service_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -20,7 +20,7 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AuthenticationResponse> login(
+  Future<LoginResponse> login(
     String email,
     String password,
     String imei,
@@ -35,7 +35,7 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
       'imei': imei,
       'deviceType': deviceType,
     };
-    final _options = _setStreamType<AuthenticationResponse>(
+    final _options = _setStreamType<LoginResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -46,9 +46,9 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AuthenticationResponse _value;
+    late LoginResponse _value;
     try {
-      _value = AuthenticationResponse.fromJson(_result.data!);
+      _value = LoginResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -57,12 +57,12 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
   }
 
   @override
-  Future<AuthenticationResponse> forgotPassword(String email) async {
+  Future<ForgotPasswordResponse> forgotPassword(String email) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {'email': email};
-    final _options = _setStreamType<AuthenticationResponse>(
+    final _options = _setStreamType<String>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -73,9 +73,9 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AuthenticationResponse _value;
+    late ForgotPasswordResponse _value;
     try {
-      _value = AuthenticationResponse.fromJson(_result.data!);
+      _value = ForgotPasswordResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -84,7 +84,7 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
   }
 
   @override
-  Future<AuthenticationResponse> register(
+  Future<RegisterResponse> register(
     String countryMobileCode,
     String userName,
     String email,
@@ -103,7 +103,7 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
       'mobile_number': mobilNumber,
       'profile_picture': profilePicture,
     };
-    final _options = _setStreamType<AuthenticationResponse>(
+    final _options = _setStreamType<RegisterResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -114,9 +114,9 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AuthenticationResponse _value;
+    late RegisterResponse _value;
     try {
-      _value = AuthenticationResponse.fromJson(_result.data!);
+      _value = RegisterResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

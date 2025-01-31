@@ -21,7 +21,7 @@ enum DataSource {
 }
 
 class ErrorHandler implements Exception {
-  late Failure failure;
+  late ResponseError failure;
 
   ErrorHandler.handle(dynamic error) {
     if (error is DioException) {
@@ -34,7 +34,7 @@ class ErrorHandler implements Exception {
   }
 
   //Handlling dio client errors/exceptions.(From API response)
-  Failure _handleError(DioException error) {
+  ResponseError _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
         return DataSource.CONNECT_TIMEOUT.getFailure();
@@ -72,42 +72,44 @@ class ErrorHandler implements Exception {
 }
 
 extension DataSourceExtension on DataSource {
-  Failure getFailure() {
+  ResponseError getFailure() {
     switch (this) {
       case DataSource.BAD_REQUEST:
-        return Failure(
+        return ResponseError(
             ResponseCode.BAD_REQUEST, ResponseMessage.BAD_REQUEST.tr());
       case DataSource.FORBIDDEN:
-        return Failure(ResponseCode.FORBIDDEN, ResponseMessage.FORBIDDEN.tr());
+        return ResponseError(
+            ResponseCode.FORBIDDEN, ResponseMessage.FORBIDDEN.tr());
       case DataSource.UNAUTHORISED:
-        return Failure(
+        return ResponseError(
             ResponseCode.UNAUTHORISED, ResponseMessage.UNAUTHORISED.tr());
       case DataSource.NOT_FOUND:
-        return Failure(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND.tr());
+        return ResponseError(
+            ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND.tr());
       case DataSource.INTERNAL_SERVER_ERROR:
-        return Failure(ResponseCode.INTERNAL_SERVER_ERROR,
+        return ResponseError(ResponseCode.INTERNAL_SERVER_ERROR,
             ResponseMessage.INTERNAL_SERVER_ERROR.tr());
       case DataSource.CONNECT_TIMEOUT:
-        return Failure(
+        return ResponseError(
             ResponseCode.CONNECT_TIMEOUT, ResponseMessage.CONNECT_TIMEOUT.tr());
       case DataSource.CANCEL:
-        return Failure(ResponseCode.CANCEL, ResponseMessage.CANCEL.tr());
+        return ResponseError(ResponseCode.CANCEL, ResponseMessage.CANCEL.tr());
       case DataSource.RECEIVE_TIMEOUT:
-        return Failure(
+        return ResponseError(
             ResponseCode.RECEIVE_TIMEOUT, ResponseMessage.RECEIVE_TIMEOUT.tr());
       case DataSource.SEND_TIMEOUT:
-        return Failure(
+        return ResponseError(
             ResponseCode.SEND_TIMEOUT, ResponseMessage.SEND_TIMEOUT.tr());
       case DataSource.CACHE_ERROR:
-        return Failure(
+        return ResponseError(
             ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR.tr());
       case DataSource.NO_INTERNET_CONNECTION:
-        return Failure(ResponseCode.NO_INTERNET_CONNECTION,
+        return ResponseError(ResponseCode.NO_INTERNET_CONNECTION,
             ResponseMessage.NO_INTERNET_CONNECTION.tr());
       case DataSource.DEFAULT:
-        return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
+        return ResponseError(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
       default:
-        return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
+        return ResponseError(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
     }
   }
 }

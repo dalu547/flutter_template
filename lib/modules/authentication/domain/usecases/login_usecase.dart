@@ -13,7 +13,8 @@ class LoginUseCase implements BaseUseCase<LoginUseCaseInput, LoginEntity> {
   LoginUseCase(this._repository);
 
   @override
-  Future<Either<Failure, LoginEntity>> execute(LoginUseCaseInput input) async {
+  Future<Either<ResponseError, LoginEntity>> execute(
+      LoginUseCaseInput input) async {
     DeviceInfo deviceInfo = await getDeviceDetails();
     return await _repository.login(LoginRequest(
         input.email, input.password, deviceInfo.identifier, deviceInfo.name));

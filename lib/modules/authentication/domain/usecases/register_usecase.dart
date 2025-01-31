@@ -12,7 +12,7 @@ class RegisterUseCase
   RegisterUseCase(this._repository);
 
   @override
-  Future<Either<Failure, RegisterEntity>> execute(
+  Future<Either<ResponseError, RegisterEntity>> execute(
       RegisterUseCaseInput input) async {
     return await _repository.register(RegisterRequest(
         input.countryMobileCode,

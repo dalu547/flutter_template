@@ -20,7 +20,8 @@ class RepositoryImpl extends AuthenticationRepository {
       this._remoteDataSource, this._localDataSource, this._networkInfo);
 
   @override
-  Future<Either<Failure, LoginEntity>> login(LoginRequest loginRequest) async {
+  Future<Either<ResponseError, LoginEntity>> login(
+      LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
       try {
         // its safe to call the API
@@ -34,7 +35,8 @@ class RepositoryImpl extends AuthenticationRepository {
         } else {
           // return biz logic error
           // return left
-          return Left(Failure(response.status ?? ApiInternalStatus.FAILURE,
+          return Left(ResponseError(
+              response.status ?? ApiInternalStatus.FAILURE,
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
@@ -47,7 +49,7 @@ class RepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, ForgotPasswordEntity>> forgotPassword(
+  Future<Either<ResponseError, ForgotPasswordEntity>> forgotPassword(
       String email) async {
     if (await _networkInfo.isConnected) {
       try {
@@ -61,7 +63,7 @@ class RepositoryImpl extends AuthenticationRepository {
         } else {
           // failure
           // return left
-          return Left(Failure(response.status ?? ResponseCode.DEFAULT,
+          return Left(ResponseError(response.status ?? ResponseCode.DEFAULT,
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
@@ -75,7 +77,7 @@ class RepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, RegisterEntity>> register(
+  Future<Either<ResponseError, RegisterEntity>> register(
       RegisterRequest registerRequest) async {
     if (await _networkInfo.isConnected) {
       try {
@@ -90,7 +92,8 @@ class RepositoryImpl extends AuthenticationRepository {
         } else {
           // return biz logic error
           // return left
-          return Left(Failure(response.status ?? ApiInternalStatus.FAILURE,
+          return Left(ResponseError(
+              response.status ?? ApiInternalStatus.FAILURE,
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {

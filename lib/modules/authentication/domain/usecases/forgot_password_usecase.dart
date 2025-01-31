@@ -11,7 +11,8 @@ class ForgotPasswordUseCase
   ForgotPasswordUseCase(this._repository);
 
   @override
-  Future<Either<Failure, ForgotPasswordEntity>> execute(String input) async {
+  Future<Either<ResponseError, ForgotPasswordEntity>> execute(
+      String input) async {
     return await _repository.forgotPassword(input);
   }
 }

@@ -15,22 +15,33 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #UI related.
   flutter_svg: ^2.0.17
   cupertino_icons: ^1.0.8
+  sizer: ^3.0.5
+
   easy_localization: ^3.0.7
 
   #Networking
   retrofit: ^4.4.2
-  dio: ^5.7.0
+  dio: ^5.8.0+1
   internet_connection_checker: ^3.0.1
   pretty_dio_logger: ^1.4.0
   dartz: ^0.10.1
 
-
+  get_it: ^8.0.3
 
   #utils 
   logger: ^2.5.0
-  device_info_plus: ^11.2.1
+  device_info_plus: ^11.2.2
+
+  #state management
+  equatable: ^2.0.7
+  flutter_bloc: ^9.0.0
+  bloc: ^9.0.0
+
+
+
 
 
 

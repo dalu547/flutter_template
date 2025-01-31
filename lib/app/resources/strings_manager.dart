@@ -13,4 +13,6 @@ class AppStrings {
   static const String cacheError = "cache_error";
   static const String noInternetError = "no_internet_error";
   static const String success = "success";
+
+  static String noRouteFound = "";
 }

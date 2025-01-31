@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:template/core/network/error_handler.dart';
-import 'package:template/core/network/failure.dart';
+import 'package:template/core/network/response_error.dart';
 import 'package:template/core/network/network_info.dart';
 import 'package:template/modules/authentication/data/datasources/local/authentication_local_datasource.dart';
 import 'package:template/modules/authentication/data/datasources/remote/authentication_remote_datasource.dart';
@@ -10,6 +10,8 @@ import 'package:template/modules/authentication/domain/entities/forgot_password_
 import 'package:template/modules/authentication/domain/entities/login_entity.dart';
 import 'package:template/modules/authentication/domain/entities/register_entity.dart';
 import 'package:template/modules/authentication/domain/repositories/authentication_repository.dart';
+
+import '../../../../app/utils/app_logger.dart';
 
 class RepositoryImpl extends AuthenticationRepository {
   final AuthenticationRemoteDatasource _remoteDataSource;
@@ -22,6 +24,8 @@ class RepositoryImpl extends AuthenticationRepository {
   @override
   Future<Either<ResponseError, LoginEntity>> login(
       LoginRequest loginRequest) async {
+    AppLogger.trace('4. Login from repo');
+
     if (await _networkInfo.isConnected) {
       try {
         // its safe to call the API
@@ -29,10 +33,14 @@ class RepositoryImpl extends AuthenticationRepository {
 
         if (response.status == ApiInternalStatus.SUCCESS) // success
         {
+          AppLogger.trace('Login success');
+
           // return data (success)
           // return right
           return Right(response.toEntity());
         } else {
+          AppLogger.trace('Login failure');
+
           // return biz logic error
           // return left
           return Left(ResponseError(
@@ -40,11 +48,11 @@ class RepositoryImpl extends AuthenticationRepository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        return (Left(ErrorHandler.handle(error).failure));
+        return (Left(ErrorHandler.handle(error).responseError));
       }
     } else {
       // return connection error
-      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      return Left(DataSource.NO_INTERNET_CONNECTION.getResponseError());
     }
   }
 
@@ -67,12 +75,12 @@ class RepositoryImpl extends AuthenticationRepository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        return Left(ErrorHandler.handle(error).failure);
+        return Left(ErrorHandler.handle(error).responseError);
       }
     } else {
       // return network connection error
       // return left
-      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      return Left(DataSource.NO_INTERNET_CONNECTION.getResponseError());
     }
   }
 
@@ -97,11 +105,11 @@ class RepositoryImpl extends AuthenticationRepository {
               response.message ?? ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        return (Left(ErrorHandler.handle(error).failure));
+        return (Left(ErrorHandler.handle(error).responseError));
       }
     } else {
       // return connection error
-      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      return Left(DataSource.NO_INTERNET_CONNECTION.getResponseError());
     }
   }
 }

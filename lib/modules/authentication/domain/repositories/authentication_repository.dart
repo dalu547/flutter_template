@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:template/core/network/failure.dart';
+import 'package:template/core/network/response_error.dart';
 import 'package:template/modules/authentication/data/models/login_request.dart';
 import 'package:template/modules/authentication/data/models/register_request.dart';
 import 'package:template/modules/authentication/domain/entities/forgot_password_entity.dart';

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:template/core/network/failure.dart';
+import 'package:template/core/network/response_error.dart';
 import 'package:template/modules/authentication/domain/entities/login_entity.dart';
 
 abstract class LoginState extends Equatable {

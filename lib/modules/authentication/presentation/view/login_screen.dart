@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:logger/logger.dart';
 import 'package:sizer/sizer.dart';
+import 'package:template/app/utils/app_logger.dart';
 import 'package:template/core/di/app_di.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_event.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_state.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_viewmodel.dart';
+
+import '../../../../app/resources/assets_manager.dart';
 
 class LoginView extends StatefulWidget {
   static const routeName = '/login';
@@ -39,7 +43,7 @@ class _LoginScreenState extends State<LoginView> {
             } else if (state is LoginFailure) {
               // Handle login failure (show error)
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Login Failed: ${state.error}")),
+                SnackBar(content: Text("Login Failed: ${state.error.message}")),
               );
             }
           },
@@ -60,10 +64,8 @@ class _LoginScreenState extends State<LoginView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 5.h),
-          Image.network(
-            "https://your_logo_url_here.com", // Replace with your logo URL
-            width: 20.w,
-            height: 20.h,
+          Image(
+            image: AssetImage(ImageAssets.splashLogo),
           ),
           SizedBox(height: 5.h),
           Visibility(
@@ -108,6 +110,7 @@ class _LoginScreenState extends State<LoginView> {
           final password = _passwordController.text;
 
           // Trigger login event
+          AppLogger.trace('1. Login view');
           loginBloc.add(LoginSubmitted(email, password));
         },
         child: const Text('Login'),

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:template/core/base/base_usecase.dart';
-import 'package:template/core/network/failure.dart';
+import 'package:template/core/network/response_error.dart';
 import 'package:template/modules/authentication/data/models/register_request.dart';
 import 'package:template/modules/authentication/domain/entities/register_entity.dart';
 import 'package:template/modules/authentication/domain/repositories/authentication_repository.dart';

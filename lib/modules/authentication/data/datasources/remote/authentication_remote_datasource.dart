@@ -5,6 +5,8 @@ import 'package:template/modules/authentication/data/models/login_request.dart';
 import 'package:template/modules/authentication/data/models/register_request.dart';
 import 'package:template/modules/authentication/data/models/register_response.dart';
 
+import '../../../../../app/utils/app_logger.dart';
+
 abstract class AuthenticationRemoteDatasource {
   Future<LoginResponse> login(LoginRequest loginRequest);
   Future<RegisterResponse> register(RegisterRequest registerRequest);
@@ -18,6 +20,8 @@ class RemoteDataSourceImpl implements AuthenticationRemoteDatasource {
 
   @override
   Future<LoginResponse> login(LoginRequest loginRequest) async {
+    AppLogger.trace('5. Login from remote data source');
+
     return await _serviceClient.login(
         loginRequest.email, loginRequest.password, "", "");
   }

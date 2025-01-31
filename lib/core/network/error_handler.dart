@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:template/app/resources/strings_manager.dart';
-import 'package:template/core/network/failure.dart';
+import 'package:template/core/network/response_error.dart';
 
 enum DataSource {
   SUCCESS,
@@ -21,15 +21,15 @@ enum DataSource {
 }
 
 class ErrorHandler implements Exception {
-  late ResponseError failure;
+  late ResponseError responseError;
 
   ErrorHandler.handle(dynamic error) {
     if (error is DioException) {
       // dio error so its error from response of the API
-      failure = _handleError(error);
+      responseError = _handleError(error);
     } else {
       // default error
-      failure = DataSource.DEFAULT.getFailure();
+      responseError = DataSource.DEFAULT.getResponseError();
     }
   }
 
@@ -37,42 +37,42 @@ class ErrorHandler implements Exception {
   ResponseError _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
-        return DataSource.CONNECT_TIMEOUT.getFailure();
+        return DataSource.CONNECT_TIMEOUT.getResponseError();
       case DioExceptionType.sendTimeout:
-        return DataSource.SEND_TIMEOUT.getFailure();
+        return DataSource.SEND_TIMEOUT.getResponseError();
       case DioExceptionType.receiveTimeout:
-        return DataSource.RECEIVE_TIMEOUT.getFailure();
+        return DataSource.RECEIVE_TIMEOUT.getResponseError();
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case ResponseCode.BAD_REQUEST:
-            return DataSource.BAD_REQUEST.getFailure();
+            return DataSource.BAD_REQUEST.getResponseError();
           case ResponseCode.FORBIDDEN:
-            return DataSource.FORBIDDEN.getFailure();
+            return DataSource.FORBIDDEN.getResponseError();
           case ResponseCode.UNAUTHORISED:
-            return DataSource.UNAUTHORISED.getFailure();
+            return DataSource.UNAUTHORISED.getResponseError();
           case ResponseCode.NOT_FOUND:
-            return DataSource.NOT_FOUND.getFailure();
+            return DataSource.NOT_FOUND.getResponseError();
           case ResponseCode.INTERNAL_SERVER_ERROR:
-            return DataSource.INTERNAL_SERVER_ERROR.getFailure();
+            return DataSource.INTERNAL_SERVER_ERROR.getResponseError();
           default:
-            return DataSource.DEFAULT.getFailure();
+            return DataSource.DEFAULT.getResponseError();
         }
       case DioExceptionType.cancel:
-        return DataSource.CANCEL.getFailure();
+        return DataSource.CANCEL.getResponseError();
       case DioExceptionType.unknown:
-        return DataSource.DEFAULT.getFailure();
+        return DataSource.DEFAULT.getResponseError();
       case DioExceptionType.badCertificate:
         return DataSource.DEFAULT
-            .getFailure(); //But handle badCertificate later.
+            .getResponseError(); //But handle badCertificate later.
       case DioExceptionType.connectionError:
         return DataSource.DEFAULT
-            .getFailure(); //But handle connectionError later.
+            .getResponseError(); //But handle connectionError later.
     }
   }
 }
 
 extension DataSourceExtension on DataSource {
-  ResponseError getFailure() {
+  ResponseError getResponseError() {
     switch (this) {
       case DataSource.BAD_REQUEST:
         return ResponseError(

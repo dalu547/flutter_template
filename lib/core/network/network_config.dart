@@ -1,5 +1,5 @@
 class NetworkConfig {
-  static const String baseUrl = "https://api.example.com";
+  static const String baseUrl = "https://test-greenkogroup.sinenow.com:5001";
 
   static const int timeOut = 5000; // 5 seconds
   static const Duration connectTimeout = Duration(milliseconds: timeOut);

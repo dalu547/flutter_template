@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:logger/logger.dart';
 import 'package:sizer/sizer.dart';
 import 'package:template/app/utils/app_logger.dart';
 import 'package:template/core/di/app_di.dart';
@@ -109,8 +108,6 @@ class _LoginScreenState extends State<LoginView> {
           final email = _emailController.text;
           final password = _passwordController.text;
 
-          // Trigger login event
-          AppLogger.trace('1. Login view');
           loginBloc.add(LoginSubmitted(email, password));
         },
         child: const Text('Login'),

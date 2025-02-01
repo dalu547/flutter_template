@@ -13,13 +13,9 @@ abstract class AuthenticationServiceClient {
   factory AuthenticationServiceClient(Dio dio, {String baseUrl}) =
       _AuthenticationServiceClient;
 
-  @POST("/customers/login")
+  @POST("/login")
   Future<LoginResponse> login(
-    @Field("email") String email,
-    @Field("password") String password,
-    @Field("imei") String imei,
-    @Field("deviceType") String deviceType,
-  );
+      @Field("email_address") String email, @Field("password") String password);
 
   @POST("/customers/forgotPassword")
   Future<ForgotPasswordResponse> forgotPassword(@Field("email") String email);

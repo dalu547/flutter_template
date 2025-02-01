@@ -10,7 +10,7 @@ part of 'authentication_service_client.dart';
 
 class _AuthenticationServiceClient implements AuthenticationServiceClient {
   _AuthenticationServiceClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.example.com';
+    baseUrl ??= 'https://test-greenkogroup.sinenow.com:5001';
   }
 
   final Dio _dio;
@@ -20,26 +20,16 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<LoginResponse> login(
-    String email,
-    String password,
-    String imei,
-    String deviceType,
-  ) async {
+  Future<LoginResponse> login(String email, String password) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {
-      'email': email,
-      'password': password,
-      'imei': imei,
-      'deviceType': deviceType,
-    };
+    final _data = {'email_address': email, 'password': password};
     final _options = _setStreamType<LoginResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/customers/login',
+            '/login',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -62,7 +52,7 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {'email': email};
-    final _options = _setStreamType<String>(
+    final _options = _setStreamType<ForgotPasswordResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,

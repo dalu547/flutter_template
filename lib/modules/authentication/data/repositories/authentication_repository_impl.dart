@@ -11,8 +11,6 @@ import 'package:template/modules/authentication/domain/entities/login_entity.dar
 import 'package:template/modules/authentication/domain/entities/register_entity.dart';
 import 'package:template/modules/authentication/domain/repositories/authentication_repository.dart';
 
-import '../../../../app/utils/app_logger.dart';
-
 class RepositoryImpl extends AuthenticationRepository {
   final AuthenticationRemoteDatasource _remoteDataSource;
   final AuthenticationLocalDatasource _localDataSource;
@@ -24,8 +22,6 @@ class RepositoryImpl extends AuthenticationRepository {
   @override
   Future<Either<ResponseError, LoginEntity>> login(
       LoginRequest loginRequest) async {
-    AppLogger.trace('4. Login from repo');
-
     if (await _networkInfo.isConnected) {
       try {
         // its safe to call the API
@@ -33,14 +29,10 @@ class RepositoryImpl extends AuthenticationRepository {
 
         if (response.status == ApiInternalStatus.SUCCESS) // success
         {
-          AppLogger.trace('Login success');
-
           // return data (success)
           // return right
           return Right(response.toEntity());
         } else {
-          AppLogger.trace('Login failure');
-
           // return biz logic error
           // return left
           return Left(ResponseError(

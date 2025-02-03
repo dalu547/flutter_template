@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Primary colors
   static const primary = Color(0xff13968E);
-  static const primaryDark = Color(0xff0E7E78);
+  static const primaryDark = Color(0xffd17d11);
   static const primaryLight = Color(0xffC2E4E2);
 
   // Transparent color
@@ -49,17 +49,17 @@ class AppColors {
   static const grey500 = Color(0xff8798A1);
   static const grey300 = Color(0xffC8D3D9);
 
-  static Color darkGrey = HexColor.fromHex("#525252");
-  static Color grey = HexColor.fromHex("#737477");
-  static Color lightGrey = HexColor.fromHex("#9E9E9E");
-  static Color primaryOpacity70 = HexColor.fromHex("#B3ED9728");
+  static const darkGrey = Color(0xff525252);
+  static const grey = Color(0xff737477);
+  static const lightGrey = Color(0xff9E9E9E);
+  static const primaryOpacity70 = Color(0xffB3ED97);
 
-  // new colors
-  static Color darkPrimary = HexColor.fromHex("#d17d11");
-  static Color grey1 = HexColor.fromHex("#707070");
-  static Color grey2 = HexColor.fromHex("#797979");
-  static Color white = HexColor.fromHex("#FFFFFF");
-  static Color black = HexColor.fromHex("#000000");
+  static const grey1 = Color(0xff707070);
+  static const grey2 = Color(0xff797979);
+  static const white = Color(0xffFFFFFF);
+  static const black = Color(0xff000000);
+
+  // static Color black = HexColor.fromHex("#000000");
 }
 
 extension HexColor on Color {

@@ -10,7 +10,7 @@ part of 'authentication_service_client.dart';
 
 class _AuthenticationServiceClient implements AuthenticationServiceClient {
   _AuthenticationServiceClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://test-greenkogroup.sinenow.com:5001';
+    baseUrl ??= 'https://dummyjson.com/auth';
   }
 
   final Dio _dio;
@@ -24,7 +24,7 @@ class _AuthenticationServiceClient implements AuthenticationServiceClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {'email_address': email, 'password': password};
+    final _data = {'username': email, 'password': password};
     final _options = _setStreamType<LoginResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

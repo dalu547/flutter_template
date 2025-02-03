@@ -7,17 +7,20 @@ import 'package:template/app/resources/color_manager.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
       // main colors of the app
-      primaryColor: AppColors.primary,
+      primaryColor: AppColors.primaryDark,
       primaryColorLight: AppColors.primaryOpacity70,
-      primaryColorDark: AppColors.darkPrimary,
+      primaryColorDark: AppColors.primaryDark,
       disabledColor: AppColors.grey1,
+
       // ripple color
       splashColor: AppColors.primaryOpacity70,
+
       // card view theme
       cardTheme: CardTheme(
           color: AppColors.white,
           shadowColor: AppColors.grey,
           elevation: AppSize.s4),
+
       // App bar theme
       appBarTheme: AppBarTheme(
           centerTitle: true,
@@ -26,6 +29,7 @@ ThemeData getApplicationTheme() {
           shadowColor: AppColors.primaryOpacity70,
           titleTextStyle:
               getRegularStyle(color: AppColors.white, fontSize: FontSize.s16)),
+
       // Button theme
       buttonTheme: ButtonThemeData(
           shape: const StadiumBorder(),
@@ -58,8 +62,8 @@ ThemeData getApplicationTheme() {
           bodyMedium: getMediumStyle(color: AppColors.lightGrey),
           bodySmall: getRegularStyle(color: AppColors.grey1),
           bodyLarge: getRegularStyle(color: AppColors.grey)),
-      // input decoration theme (text form field)
 
+      // input decoration theme (text form field)
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.all(AppPadding.p8),
         // hint style
@@ -85,6 +89,7 @@ ThemeData getApplicationTheme() {
         errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.error, width: AppSize.s1_5),
             borderRadius: BorderRadius.all(Radius.circular(AppSize.s8))),
+
         // focused error border
         focusedErrorBorder: const OutlineInputBorder(
             borderSide:

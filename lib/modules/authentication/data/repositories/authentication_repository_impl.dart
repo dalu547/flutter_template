@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:template/app/utils/app_logger.dart';
 import 'package:template/core/network/error_handler.dart';
 import 'package:template/core/network/response_error.dart';
 import 'package:template/core/network/network_info.dart';
@@ -24,10 +25,9 @@ class RepositoryImpl extends AuthenticationRepository {
       LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
       try {
-        // its safe to call the API
         final response = await _remoteDataSource.login(loginRequest);
-
-        if (response.status == ApiInternalStatus.SUCCESS) // success
+        AppLogger.trace('Response Status: ${response.status}');
+        if (response.accessToken.isNotEmpty) // success
         {
           // return data (success)
           // return right
@@ -39,8 +39,9 @@ class RepositoryImpl extends AuthenticationRepository {
               response.status ?? ApiInternalStatus.FAILURE,
               response.message ?? ResponseMessage.DEFAULT));
         }
-      } catch (error) {
-        return (Left(ErrorHandler.handle(error).responseError));
+      } catch (error, stacktrace) {
+        AppLogger.fatal('Login failed', error, stacktrace);
+        return Left(ErrorHandler.handle(error).responseError);
       }
     } else {
       // return connection error
@@ -66,7 +67,8 @@ class RepositoryImpl extends AuthenticationRepository {
           return Left(ResponseError(response.status ?? ResponseCode.DEFAULT,
               response.message ?? ResponseMessage.DEFAULT));
         }
-      } catch (error) {
+      } catch (error, stacktrace) {
+        AppLogger.fatal('forgotPassword failed', error, stacktrace);
         return Left(ErrorHandler.handle(error).responseError);
       }
     } else {
@@ -96,8 +98,9 @@ class RepositoryImpl extends AuthenticationRepository {
               response.status ?? ApiInternalStatus.FAILURE,
               response.message ?? ResponseMessage.DEFAULT));
         }
-      } catch (error) {
-        return (Left(ErrorHandler.handle(error).responseError));
+      } catch (error, stacktrace) {
+        AppLogger.fatal('register failed', error, stacktrace);
+        return Left(ErrorHandler.handle(error).responseError);
       }
     } else {
       // return connection error

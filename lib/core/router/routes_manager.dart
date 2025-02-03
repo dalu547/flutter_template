@@ -4,6 +4,7 @@ import 'package:template/modules/onboard/presentation/views/splash.dart';
 
 import '../../modules/authentication/presentation/view/login_screen.dart';
 import '../../app/resources/strings_manager.dart';
+import '../../modules/home/presentation/views/main_home_screen.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -11,7 +12,7 @@ class Routes {
   static const String loginRoute = "/login";
   static const String registerRoute = "/register";
   static const String forgotPasswordRoute = "/forgotPassword";
-  static const String mainRoute = "/main";
+  static const String mainRoute = "/mainHome";
 }
 
 class RouteGenerator {
@@ -31,9 +32,9 @@ class RouteGenerator {
       // case Routes.forgotPasswordRoute:
       //   // initForgotPasswordModule();
       //   return MaterialPageRoute(builder: (_) => ForgotPasswordView());
-      // case Routes.mainRoute:
-      //   // initHomeModule();
-      //   return MaterialPageRoute(builder: (_) => MainView());
+      case Routes.mainRoute:
+        //   // initHomeModule();
+        return MaterialPageRoute(builder: (_) => MainHomeScreen());
 
       default:
         return unDefinedRoute();

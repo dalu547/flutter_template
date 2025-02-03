@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:template/modules/onboard/presentation/views/splash.dart';
+import 'package:template/modules/onboard/presentation/views/splash_screen.dart';
 
 import '../../modules/authentication/presentation/view/login_screen.dart';
 import '../../app/resources/strings_manager.dart';

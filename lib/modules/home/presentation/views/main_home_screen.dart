@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'bottom_screens/calendar_screen.dart';
+import 'bottom_screens/theme_selection_screen.dart';
 import 'bottom_screens/home_screen.dart';
 import 'bottom_screens/profile_screen.dart';
 import 'bottom_screens/setting_screen.dart';
@@ -17,7 +17,7 @@ class MainHomeScreenState extends State<MainHomeScreen> {
 
   final List<Widget> widgetOptions = const [
     HomeScreen(),
-    CalendarScreen(),
+    ThemeSelectionScreen(),
     // Center(child: Text('Add Habit', style: TextStyle(fontSize: 24))),
     ProfileScreen(),
     SettingsScreen(),
@@ -40,16 +40,21 @@ class MainHomeScreenState extends State<MainHomeScreen> {
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.amber,
-        unselectedItemColor: Colors.blueGrey,
+        selectedItemColor: Theme.of(context)
+            .bottomNavigationBarTheme
+            .selectedItemColor, // Ensure it uses theme
+        unselectedItemColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
+            icon: Icon(Icons.color_lens),
+            label: 'Theme',
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.add),

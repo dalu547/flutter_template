@@ -40,10 +40,9 @@ class SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
       body: Center(
         child: Image(
-          image: AssetImage(ImageAssets.splashLogo),
+          image: AssetImage(ImageAssets.digitele_icon),
         ),
       ),
     );

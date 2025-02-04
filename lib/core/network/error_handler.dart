@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:template/app/resources/strings_manager.dart';
 import 'package:template/core/network/response_error.dart';
 
-enum DataSource {
+enum ErrorType {
   SUCCESS,
   NO_CONTENT,
   BAD_REQUEST,
@@ -29,7 +29,7 @@ class ErrorHandler implements Exception {
       responseError = _handleError(error);
     } else {
       // default error
-      responseError = DataSource.DEFAULT.getResponseError();
+      responseError = ErrorType.DEFAULT.getResponseError();
     }
   }
 
@@ -37,76 +37,76 @@ class ErrorHandler implements Exception {
   ResponseError _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
-        return DataSource.CONNECT_TIMEOUT.getResponseError();
+        return ErrorType.CONNECT_TIMEOUT.getResponseError();
       case DioExceptionType.sendTimeout:
-        return DataSource.SEND_TIMEOUT.getResponseError();
+        return ErrorType.SEND_TIMEOUT.getResponseError();
       case DioExceptionType.receiveTimeout:
-        return DataSource.RECEIVE_TIMEOUT.getResponseError();
+        return ErrorType.RECEIVE_TIMEOUT.getResponseError();
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case ResponseCode.BAD_REQUEST:
-            return DataSource.BAD_REQUEST.getResponseError();
+            return ErrorType.BAD_REQUEST.getResponseError();
           case ResponseCode.FORBIDDEN:
-            return DataSource.FORBIDDEN.getResponseError();
+            return ErrorType.FORBIDDEN.getResponseError();
           case ResponseCode.UNAUTHORISED:
-            return DataSource.UNAUTHORISED.getResponseError();
+            return ErrorType.UNAUTHORISED.getResponseError();
           case ResponseCode.NOT_FOUND:
-            return DataSource.NOT_FOUND.getResponseError();
+            return ErrorType.NOT_FOUND.getResponseError();
           case ResponseCode.INTERNAL_SERVER_ERROR:
-            return DataSource.INTERNAL_SERVER_ERROR.getResponseError();
+            return ErrorType.INTERNAL_SERVER_ERROR.getResponseError();
           default:
-            return DataSource.DEFAULT.getResponseError();
+            return ErrorType.DEFAULT.getResponseError();
         }
       case DioExceptionType.cancel:
-        return DataSource.CANCEL.getResponseError();
+        return ErrorType.CANCEL.getResponseError();
       case DioExceptionType.unknown:
-        return DataSource.DEFAULT.getResponseError();
+        return ErrorType.DEFAULT.getResponseError();
       case DioExceptionType.badCertificate:
-        return DataSource.DEFAULT
+        return ErrorType.DEFAULT
             .getResponseError(); //But handle badCertificate later.
       case DioExceptionType.connectionError:
-        return DataSource.DEFAULT
+        return ErrorType.DEFAULT
             .getResponseError(); //But handle connectionError later.
     }
   }
 }
 
-extension DataSourceExtension on DataSource {
+extension ErrorTypeExtension on ErrorType {
   ResponseError getResponseError() {
     switch (this) {
-      case DataSource.BAD_REQUEST:
+      case ErrorType.BAD_REQUEST:
         return ResponseError(
             ResponseCode.BAD_REQUEST, ResponseMessage.BAD_REQUEST.tr());
-      case DataSource.FORBIDDEN:
+      case ErrorType.FORBIDDEN:
         return ResponseError(
             ResponseCode.FORBIDDEN, ResponseMessage.FORBIDDEN.tr());
-      case DataSource.UNAUTHORISED:
+      case ErrorType.UNAUTHORISED:
         return ResponseError(
             ResponseCode.UNAUTHORISED, ResponseMessage.UNAUTHORISED.tr());
-      case DataSource.NOT_FOUND:
+      case ErrorType.NOT_FOUND:
         return ResponseError(
             ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND.tr());
-      case DataSource.INTERNAL_SERVER_ERROR:
+      case ErrorType.INTERNAL_SERVER_ERROR:
         return ResponseError(ResponseCode.INTERNAL_SERVER_ERROR,
             ResponseMessage.INTERNAL_SERVER_ERROR.tr());
-      case DataSource.CONNECT_TIMEOUT:
+      case ErrorType.CONNECT_TIMEOUT:
         return ResponseError(
             ResponseCode.CONNECT_TIMEOUT, ResponseMessage.CONNECT_TIMEOUT.tr());
-      case DataSource.CANCEL:
+      case ErrorType.CANCEL:
         return ResponseError(ResponseCode.CANCEL, ResponseMessage.CANCEL.tr());
-      case DataSource.RECEIVE_TIMEOUT:
+      case ErrorType.RECEIVE_TIMEOUT:
         return ResponseError(
             ResponseCode.RECEIVE_TIMEOUT, ResponseMessage.RECEIVE_TIMEOUT.tr());
-      case DataSource.SEND_TIMEOUT:
+      case ErrorType.SEND_TIMEOUT:
         return ResponseError(
             ResponseCode.SEND_TIMEOUT, ResponseMessage.SEND_TIMEOUT.tr());
-      case DataSource.CACHE_ERROR:
+      case ErrorType.CACHE_ERROR:
         return ResponseError(
             ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR.tr());
-      case DataSource.NO_INTERNET_CONNECTION:
+      case ErrorType.NO_INTERNET_CONNECTION:
         return ResponseError(ResponseCode.NO_INTERNET_CONNECTION,
             ResponseMessage.NO_INTERNET_CONNECTION.tr());
-      case DataSource.DEFAULT:
+      case ErrorType.DEFAULT:
         return ResponseError(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
       default:
         return ResponseError(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);

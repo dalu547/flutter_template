@@ -33,7 +33,7 @@ class RepositoryImpl extends AuthenticationRepository {
           // return right
           return Right(response.toEntity());
         } else {
-          // return biz logic error
+          // return  logic error
           // return left
           return Left(ResponseError(
               response.status ?? ApiInternalStatus.FAILURE,
@@ -45,7 +45,7 @@ class RepositoryImpl extends AuthenticationRepository {
       }
     } else {
       // return connection error
-      return Left(DataSource.NO_INTERNET_CONNECTION.getResponseError());
+      return Left(ErrorType.NO_INTERNET_CONNECTION.getResponseError());
     }
   }
 
@@ -74,7 +74,7 @@ class RepositoryImpl extends AuthenticationRepository {
     } else {
       // return network connection error
       // return left
-      return Left(DataSource.NO_INTERNET_CONNECTION.getResponseError());
+      return Left(ErrorType.NO_INTERNET_CONNECTION.getResponseError());
     }
   }
 
@@ -104,7 +104,7 @@ class RepositoryImpl extends AuthenticationRepository {
       }
     } else {
       // return connection error
-      return Left(DataSource.NO_INTERNET_CONNECTION.getResponseError());
+      return Left(ErrorType.NO_INTERNET_CONNECTION.getResponseError());
     }
   }
 }

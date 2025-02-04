@@ -29,7 +29,7 @@ class LocalDataSourceImpl implements AuthenticationLocalDatasource {
         cachedItem.isValid(CACHE_STORE_DETAILS_INTERVAL)) {
       return cachedItem.data;
     } else {
-      throw ErrorHandler.handle(DataSource.CACHE_ERROR);
+      throw ErrorHandler.handle(ErrorType.CACHE_ERROR);
     }
   }
 

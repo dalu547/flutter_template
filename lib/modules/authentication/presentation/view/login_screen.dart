@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginView> {
         children: [
           SizedBox(height: 5.h),
           Image(
-            image: AssetImage(ImageAssets.digitele_icon),
+            image: AssetImage(ImageAssets.digitele_logo),
           ),
           SizedBox(height: 5.h),
           Visibility(

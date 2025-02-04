@@ -20,6 +20,7 @@ class RepositoryImpl extends AuthenticationRepository {
   RepositoryImpl(
       this._remoteDataSource, this._localDataSource, this._networkInfo);
 
+  //Remote connections
   @override
   Future<Either<ResponseError, LoginEntity>> login(
       LoginRequest loginRequest) async {
@@ -29,6 +30,8 @@ class RepositoryImpl extends AuthenticationRepository {
         AppLogger.trace('Response Status: ${response.status}');
         if (response.accessToken.isNotEmpty) // success
         {
+          //saving user details to localDB.
+          inserUserDetailsToDB(response.toEntity());
           // return data (success)
           // return right
           return Right(response.toEntity());
@@ -106,5 +109,16 @@ class RepositoryImpl extends AuthenticationRepository {
       // return connection error
       return Left(ErrorType.NO_INTERNET_CONNECTION.getResponseError());
     }
+  }
+
+  //Local connections.
+  @override
+  Future<LoginEntity> getUserDetailsFromDB() async {
+    return await _localDataSource.getUsereDetailsFromDB();
+  }
+
+  @override
+  Future<void> inserUserDetailsToDB(LoginEntity user) async {
+    await _localDataSource.insertUserDetailsToDB(user);
   }
 }

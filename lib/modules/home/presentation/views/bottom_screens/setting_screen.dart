@@ -5,21 +5,24 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Settings Screen',
-            style: TextStyle(fontSize: 24),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () => _logout(context),
-            child: const Text('Logout'),
-          ),
-        ],
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Settings')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Settings Screen',
+              style: TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => _logout(context),
+              child: const Text('Logout'),
+            ),
+          ],
+        ),
+      ), // Dynamic Title
     );
   }
 

@@ -10,6 +10,7 @@ class ThemeSelectionScreen extends StatelessWidget {
     final themeManager = Provider.of<ThemeManager>(context);
 
     return Scaffold(
+      appBar: AppBar(title: Text('Theme')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

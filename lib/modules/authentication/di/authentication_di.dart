@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_viewmodel.dart';
 
+import '../../../core/database/app_database.dart';
 import '../../../core/di/app_di.dart';
+import '../../user/presentation/viewmodels/profile_viewmodel.dart';
 import '../data/datasources/local/authentication_local_datasource.dart';
+import '../data/datasources/local/user_details_dao.dart';
 import '../data/datasources/remote/authentication_remote_datasource.dart';
 import '../data/datasources/remote/authentication_service_client.dart';
 import '../data/repositories/authentication_repository_impl.dart';
@@ -21,9 +24,13 @@ Future<void> initAuthenticationModule() async {
   instance.registerLazySingleton<AuthenticationRemoteDatasource>(
       () => RemoteDataSourceImpl(instance()));
 
-  // Register Authentication Local Data Source
+  //Register UserDetailsDao (from AppDatabase)
+  instance.registerLazySingleton<UserDetailsDao>(
+      () => instance<AppDatabase>().userDetailsDao);
+
+  //Register Authentication Local Data Source with injected DAO
   instance.registerLazySingleton<AuthenticationLocalDatasource>(
-      () => LocalDataSourceImpl());
+      () => LocalDataSourceImpl(instance<UserDetailsDao>()));
 
   // Register Authentication Repository
   instance.registerLazySingleton<AuthenticationRepository>(
@@ -35,4 +42,8 @@ Future<void> initAuthenticationModule() async {
   // Register Login ViewModel/BLoC
   instance.registerFactory<LoginViewModel>(
       () => LoginViewModel(instance<LoginUseCase>()));
+
+  // Register Profile ViewModel/Cubit
+  instance.registerFactory<ProfileViewModel>(
+      () => ProfileViewModel(instance<AuthenticationRepository>()));
 }

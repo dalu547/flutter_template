@@ -33,6 +33,7 @@ class ThemeManager with ChangeNotifier {
 
   // Vendor 1 theme setup
   void _setVendor1Theme() {
+    //Blue theme
     primaryColor = Colors.blue;
     secondaryColor = Colors.green;
     backgroundColor = Colors.white;
@@ -46,6 +47,7 @@ class ThemeManager with ChangeNotifier {
 
   // Vendor 2 theme setup
   void _setVendor2Theme() {
+    //Red theme
     primaryColor = Colors.red;
     secondaryColor = Colors.orange;
     backgroundColor = Colors.white;
@@ -59,6 +61,7 @@ class ThemeManager with ChangeNotifier {
 
   // Vendor 3 theme setup
   void _setVendor3Theme() {
+    //Purple Theme
     primaryColor = Colors.purple;
     secondaryColor = Colors.pink;
     backgroundColor = Colors.white;
@@ -78,7 +81,11 @@ class ThemeManager with ChangeNotifier {
       appBarTheme: AppBarTheme(
         color: appBarColor,
         iconTheme: IconThemeData(color: iconColor),
-        titleTextStyle: TextStyle(color: Colors.white),
+        titleTextStyle: TextStyle(
+          fontSize: 22, // Bigger Font Size
+          fontWeight: FontWeight.bold, // Bold/Thick
+          color: Colors.white, // Adjust text color if needed
+        ),
       ),
       textTheme: TextTheme(
         bodyLarge: TextStyle(color: textColor),

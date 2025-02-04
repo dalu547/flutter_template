@@ -1,4 +1,8 @@
+import 'package:floor/floor.dart';
+
+@Entity(tableName: 'tblUserDetails')
 class LoginEntity {
+  @PrimaryKey(autoGenerate: false)
   final int id;
   final String username;
   final String email;

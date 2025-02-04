@@ -7,9 +7,14 @@ import 'package:template/modules/authentication/domain/entities/login_entity.dar
 import 'package:template/modules/authentication/domain/entities/register_entity.dart';
 
 abstract class AuthenticationRepository {
+  //Remote connections.
   Future<Either<ResponseError, LoginEntity>> login(LoginRequest loginRequest);
   Future<Either<ResponseError, ForgotPasswordEntity>> forgotPassword(
       String email);
   Future<Either<ResponseError, RegisterEntity>> register(
       RegisterRequest registerRequest);
+
+  //Local connections
+  Future<void> inserUserDetailsToDB(LoginEntity user);
+  Future<LoginEntity> getUserDetailsFromDB();
 }

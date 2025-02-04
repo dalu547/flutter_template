@@ -5,6 +5,7 @@ import 'package:template/modules/authentication/di/authentication_di.dart';
 
 import '../../../core/network/dio_client.dart';
 import '../../../core/network/network_info.dart';
+import '../database/app_database.dart';
 
 final GetIt instance = GetIt.instance; // Creating a GetIt instance
 
@@ -22,6 +23,13 @@ Future<void> initAppModule() async {
 
   // Register Dio after fetching it
   instance.registerLazySingleton<Dio>(() => dio);
+
+  //Initialize Floor Database at App Level
+  final database =
+      await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+
+  //Register Floor Database globally
+  instance.registerLazySingleton<AppDatabase>(() => database);
 
   initFeaturesDependecies();
 }

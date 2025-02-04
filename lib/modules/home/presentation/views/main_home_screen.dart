@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../user/presentation/screens/profile_screen.dart';
 import 'bottom_screens/theme_selection_screen.dart';
 import 'bottom_screens/home_screen.dart';
-import 'bottom_screens/profile_screen.dart';
 import 'bottom_screens/setting_screen.dart';
 
 class MainHomeScreen extends StatefulWidget {
@@ -15,12 +15,12 @@ class MainHomeScreen extends StatefulWidget {
 class MainHomeScreenState extends State<MainHomeScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> widgetOptions = const [
-    HomeScreen(),
-    ThemeSelectionScreen(),
+  final List<Widget> widgetOptions = [
+    const HomeScreen(),
+    const ThemeSelectionScreen(),
     // Center(child: Text('Add Habit', style: TextStyle(fontSize: 24))),
     ProfileScreen(),
-    SettingsScreen(),
+    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -32,9 +32,6 @@ class MainHomeScreenState extends State<MainHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Digitele Flutter Template'),
-      ),
       body: widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,

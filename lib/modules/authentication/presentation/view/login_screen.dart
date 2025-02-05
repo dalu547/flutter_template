@@ -4,14 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:sizer/sizer.dart';
 import 'package:template/app/utils/app_logger.dart';
 import 'package:template/core/di/app_di.dart';
-import 'package:template/core/preferences/preference_keys.dart';
-import 'package:template/core/preferences/preference_manager.dart';
+import 'package:template/core/storage/preference_keys.dart';
+import 'package:template/core/storage/preference_manager.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_event.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_state.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_viewmodel.dart';
 
 import '../../../../app/resources/assets_manager.dart';
 import '../../../../core/router/routes_manager.dart';
+import '../../../../core/storage/secure_storage.dart';
 
 class LoginView extends StatefulWidget {
   static const routeName = '/login';
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginView> {
   final _passwordController = TextEditingController();
 
   final loginBloc = instance<LoginViewModel>();
-
+  final secureStorage = instance<SecureStorage>();
   final preferences = instance<Preferences>();
 
   @override
@@ -51,7 +52,7 @@ class _LoginScreenState extends State<LoginView> {
               // ScaffoldMessenger.of(context).showSnackBar(
               //   SnackBar(content: Text("Login Successful")),
               // );
-              await preferences.setValue(
+              await secureStorage.setValue(
                   PreferencesKeys.accessToken, state.user.accessToken);
 
               await preferences.setValue(PreferencesKeys.isLoggedIn, true);
@@ -139,8 +140,9 @@ class _LoginScreenState extends State<LoginView> {
     );
   }
 
-  goNext() {
-    String accessToken = preferences.getString(PreferencesKeys.accessToken);
+  goNext() async {
+    String? accessToken =
+        await secureStorage.getValue(PreferencesKeys.accessToken);
     AppLogger.info(accessToken);
 
     // navigate to main screen

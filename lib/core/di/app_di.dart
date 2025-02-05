@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:template/core/storage/secure_storage.dart';
 import 'package:template/modules/authentication/di/authentication_di.dart';
 
 import '../../../core/network/dio_client.dart';
 import '../../../core/network/network_info.dart';
 import '../database/app_database.dart';
-import '../preferences/preference_manager.dart';
+import '../storage/preference_manager.dart';
 
 final GetIt instance = GetIt.instance; // Creating a GetIt instance
 
@@ -14,6 +15,9 @@ Future<void> initAppModule() async {
   //Register shared preferences
   instance.registerSingleton<Preferences>(Preferences());
   await instance<Preferences>().init();
+
+  instance.registerSingleton<SecureStorage>(SecureStorage());
+  await instance<SecureStorage>().init();
 
   // Register Network Info
   instance.registerLazySingleton<NetworkInfo>(

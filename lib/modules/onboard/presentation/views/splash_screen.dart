@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:template/core/di/app_di.dart';
-import 'package:template/core/preferences/preference_keys.dart';
-import 'package:template/core/preferences/preference_manager.dart';
+import 'package:template/core/storage/preference_keys.dart';
+import 'package:template/core/storage/preference_manager.dart';
 
 import '../../../../app/resources/assets_manager.dart';
-import '../../../../app/resources/color_manager.dart';
 import '../../../../core/router/routes_manager.dart';
 
 class SplashView extends StatefulWidget {

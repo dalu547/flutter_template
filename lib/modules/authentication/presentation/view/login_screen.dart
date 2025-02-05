@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sizer/sizer.dart';
+import 'package:template/app/utils/app_logger.dart';
 import 'package:template/core/di/app_di.dart';
+import 'package:template/core/preferences/preference_keys.dart';
+import 'package:template/core/preferences/preference_manager.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_event.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_state.dart';
 import 'package:template/modules/authentication/presentation/viewmodel/login_viewmodel.dart';
@@ -25,6 +28,8 @@ class _LoginScreenState extends State<LoginView> {
 
   final loginBloc = instance<LoginViewModel>();
 
+  final preferences = instance<Preferences>();
+
   @override
   void initState() {
     _emailController.text = "emilys";
@@ -40,12 +45,16 @@ class _LoginScreenState extends State<LoginView> {
       body: BlocProvider<LoginViewModel>(
         create: (context) => loginBloc,
         child: BlocConsumer<LoginViewModel, LoginState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is LoginSuccess) {
               // Handle login success (Navigate to HomePage or MainScreen)
               // ScaffoldMessenger.of(context).showSnackBar(
               //   SnackBar(content: Text("Login Successful")),
               // );
+              await preferences.setValue(
+                  PreferencesKeys.accessToken, state.user.accessToken);
+
+              await preferences.setValue(PreferencesKeys.isLoggedIn, true);
               goNext();
               // Navigate to the home screen or dashboard
             } else if (state is LoginFailure) {
@@ -130,7 +139,10 @@ class _LoginScreenState extends State<LoginView> {
     );
   }
 
-  goNext() async {
+  goNext() {
+    String accessToken = preferences.getString(PreferencesKeys.accessToken);
+    AppLogger.info(accessToken);
+
     // navigate to main screen
     Navigator.pushReplacementNamed(context, Routes.mainRoute);
   }

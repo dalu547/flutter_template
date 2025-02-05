@@ -6,10 +6,15 @@ import 'package:template/modules/authentication/di/authentication_di.dart';
 import '../../../core/network/dio_client.dart';
 import '../../../core/network/network_info.dart';
 import '../database/app_database.dart';
+import '../preferences/preference_manager.dart';
 
 final GetIt instance = GetIt.instance; // Creating a GetIt instance
 
 Future<void> initAppModule() async {
+  //Register shared preferences
+  instance.registerSingleton<Preferences>(Preferences());
+  await instance<Preferences>().init();
+
   // Register Network Info
   instance.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(InternetConnectionChecker.createInstance()));
@@ -27,8 +32,6 @@ Future<void> initAppModule() async {
   //Initialize Floor Database at App Level
   final database =
       await $FloorAppDatabase.databaseBuilder('app_database.db').build();
-
-  //Register Floor Database globally
   instance.registerLazySingleton<AppDatabase>(() => database);
 
   initFeaturesDependecies();

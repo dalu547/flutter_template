@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:template/core/di/app_di.dart';
+import 'package:template/core/preferences/preference_keys.dart';
+import 'package:template/core/preferences/preference_manager.dart';
 
 import '../../../../app/resources/assets_manager.dart';
 import '../../../../app/resources/color_manager.dart';
@@ -14,6 +17,8 @@ class SplashView extends StatefulWidget {
 }
 
 class SplashViewState extends State<SplashView> {
+  final preferences = instance<Preferences>();
+
   Timer? _timer;
 
   _startDelay() {
@@ -21,8 +26,14 @@ class SplashViewState extends State<SplashView> {
   }
 
   _goNext() async {
-    // navigate to main screen
-    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+    bool isLoggedIn = preferences.getBool(PreferencesKeys.isLoggedIn);
+    if (isLoggedIn) {
+      // navigate to main screen
+      Navigator.pushReplacementNamed(context, Routes.mainRoute);
+    } else {
+      // navigate to login screen
+      Navigator.pushReplacementNamed(context, Routes.loginRoute);
+    }
   }
 
   @override

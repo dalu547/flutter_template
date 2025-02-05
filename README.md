@@ -5,28 +5,19 @@ This is a Flutter project developed as a technical test by **Dalayya Kalla**. Th
 
 ## Table of Contents
 - [Architecture](#architecture)
-- [Technologies and Libraries Used](#technologies-and-libraries-used)
+- [Folder Structure](#folder-structure)
+- [ibraries Used](libraries-used)
 - [Author](#author)
 
 ## Architecture
 
-The Project is Based on MVVM and Clean-Architecture with consideration of SOLID principles which Includes below folders Module:
+The Project is Based on MVVM and Clean-Architecture with consideration of SOLID principles.
 
-1. core : which has all base classes/setup for network,storage,resources etc.
-2. app : which has all app related stuff router, dependancy injection(di).
-3. modules : total app modules/feautues ex: onboarding,auth and home etc.
-            Each module layered folders based on  MVVM architecture.
-            data 
-              - models
-              - repositories
-              - datasources
-            domain
-              - entities
-              - usecases
-            presentation
-              - screens
-              - widgets
-              - viewmodels 
+![Architecture Diagram](screenshots/clean_architecture.png)
+
+## Folder Structure
+
+We used Featured based folder structure. (Layers data, domain and presentation) inside features.
 
 **Data:** The data layer serves as a bridge between the domain layer and the presentation layer, supplying data through implementations of data sources, repositories, and models.
 
@@ -34,17 +25,30 @@ The Project is Based on MVVM and Clean-Architecture with consideration of SOLID 
 
 **Presentation**: The presentation layer manages user interfaces and interactions, focusing on the visual representation of data and user experience. It relies on the domain layer for business logic and the data layer for data retrieval, fostering a clear separation of concerns in the application architecture.
 
-## Technologies and Libraries Used
+![Folder Diagram](screenshots/folder_structure.png)
+
+## Libraries Used
 
 - **Flutter**: Flutter is a UI toolkit that enables the creation of natively compiled applications for mobile, web, and desktop from a single codebase.
-
+ 
+- **Retrofit and Dio** : for Networking.
+- **Floor** : for Local Database.
+- **Bloc and Cubit** : for State Management.
+- **GetIt** : Dependancy Injection.
+- **Shared Preferences** : for local storage.
+- **Flutter Secure Storage** : for secure storage.
+- **Sizer** : for Responsive UI.
+- **Provider** : for dynamic UI updates.
 
 ### Author
 
  **Dalayya Kalla**
 
-- **LinkedIn**: https://www.linkedin.com/in/dalayya-kalla-4b11a059/
 - **Email**: [dalu547@gmail.com]()
+- **LinkedIn**: https://www.linkedin.com/in/dalayya-kalla-4b11a059/
+- **Medium**: https://medium.com/@dalu547
+- **Github** : https://github.com/dalu547
+  
 
 
 

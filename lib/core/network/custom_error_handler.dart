@@ -1,0 +1,127 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:template/app/utils/app_logger.dart';
+
+/// Handling  all errors
+class ErrorHandler implements Exception {
+  String _errorMessage = "";
+
+  ErrorHandler(this._errorMessage);
+
+  ErrorHandler.dioException({required DioException error}) {
+    _handleDioException(error);
+  }
+
+  ErrorHandler.otherException() {
+    _handleOtherException();
+  }
+
+  //error getter
+  getErrorMessage() {
+    return _errorMessage;
+  }
+
+  //error will be type ,cast etc..
+  _handleOtherException() {
+    _errorMessage = "Something went Wrong";
+    ErrorHandler serverError = ErrorHandler(_errorMessage);
+    return serverError;
+  }
+
+  //error will be network related
+  _handleDioException(DioException error) {
+    ErrorHandler serverError;
+    switch (error.type) {
+      case DioExceptionType.cancel:
+        _errorMessage = "Request Canceled";
+        serverError = ErrorHandler(_errorMessage);
+        break;
+      case DioExceptionType.connectionTimeout:
+        _errorMessage = "Connection time out";
+        serverError = ErrorHandler(_errorMessage);
+        break;
+      case DioExceptionType.receiveTimeout:
+        _errorMessage = "Received timeout";
+        serverError = ErrorHandler(_errorMessage);
+        break;
+      case DioExceptionType.badResponse:
+        if (error.response?.statusCode == 503 ||
+            error.response?.statusCode == 502) {
+          _errorMessage = "Something went wrong";
+          serverError = ErrorHandler(_errorMessage);
+        } else if (error.response?.statusCode == 203) {
+          _errorMessage = handle203Response(error.response?.data);
+          serverError = ErrorHandler(_errorMessage);
+        } else if (error.response?.statusCode != 401) {
+          _errorMessage = handleBadRequest(error.response?.data);
+          serverError = ErrorHandler(_errorMessage);
+        } else {
+          _errorMessage = "Unauthorised or Invalid credentials";
+          serverError = ErrorHandler(_errorMessage);
+        }
+        break;
+      case DioExceptionType.unknown:
+        AppLogger.info("Called here unknown");
+        _errorMessage = "Something went wrong";
+        serverError = ErrorHandler(_errorMessage);
+        break;
+      case DioExceptionType.sendTimeout:
+        if (kReleaseMode) {
+          _errorMessage = "Something went wrong";
+        } else {
+          _errorMessage = "Received timeout";
+        }
+        serverError = ErrorHandler(_errorMessage);
+        break;
+      case DioExceptionType.connectionError:
+        _errorMessage = "The connection error : Connection refused";
+        serverError = ErrorHandler(_errorMessage);
+        break;
+      default:
+        _errorMessage = error.response?.statusMessage ?? "Something went wrong";
+        serverError = ErrorHandler(_errorMessage);
+        break;
+    }
+    return serverError;
+  }
+
+  // Handle specific 203 response
+  String handle203Response(Map<String, dynamic>? responseData) {
+    AppLogger.info('203 response handlling');
+    // Customize this function based on the structure of your 203 response
+    if (responseData?['data'] != null &&
+        responseData?['data']['message'] != null) {
+      return responseData!['data']['message'];
+    }
+    return "Non-authoritative Information";
+  }
+
+  // this is a sample error structure it might change on your case
+  // so you have to add your own error structure  in order to catch the errors
+  String handleBadRequest(Map<String, dynamic>? errorData) {
+    String error = "";
+    if (errorData?['error_description'] != null) {
+      final message = errorData?['error_description'];
+      error = message;
+    } else if (errorData?['error'] != null) {
+      try {
+        final errorObject = errorData?['error'];
+        final message = errorObject['message'];
+        final dynamic errorTag =
+            message.keys.first; // Extract the first key dynamically
+        error = message[errorTag];
+      } catch (e) {
+        error = errorData?['error']['message'] ?? "";
+      }
+    } else if (errorData?['errors'] == null && errorData?.entries != null) {
+      for (var item in errorData!.entries) {
+        error = item.value.toString();
+        break;
+      }
+    } else {
+      error = "Something went wrong";
+    }
+
+    return error;
+  }
+}

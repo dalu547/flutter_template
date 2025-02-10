@@ -114,6 +114,35 @@ extension ErrorTypeExtension on ErrorType {
   }
 }
 
+// this is a sample error structure it might change on your case
+// so you have to add your own error structure  in order to catch the errors
+String handleResponseErrorFromServer(Map<String, dynamic>? errorData) {
+  String error = "";
+  if (errorData?['error_description'] != null) {
+    final message = errorData?['error_description'];
+    error = message;
+  } else if (errorData?['error'] != null) {
+    try {
+      final errorObject = errorData?['error'];
+      final message = errorObject['message'];
+      final dynamic errorTag =
+          message.keys.first; // Extract the first key dynamically
+      error = message[errorTag];
+    } catch (e) {
+      error = errorData?['error']['message'] ?? "";
+    }
+  } else if (errorData?['errors'] == null && errorData?.entries != null) {
+    for (var item in errorData!.entries) {
+      error = item.value.toString();
+      break;
+    }
+  } else {
+    error = "Something went wrong";
+  }
+
+  return error;
+}
+
 class ResponseCode {
   // API status codes
   static const int SUCCESS = 200; // success with data

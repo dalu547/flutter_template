@@ -6,7 +6,7 @@ This is a Flutter project developed as a technical test by **Dalayya Kalla**. Th
 ## Table of Contents
 - [Architecture](#architecture)
 - [Folder Structure](#folder-structure)
-- [ibraries Used](libraries-used)
+- [Libraries Used](libraries-used)
 - [Author](#author)
 
 ## Architecture
@@ -17,7 +17,10 @@ The Project is Based on MVVM and Clean-Architecture with consideration of SOLID 
 
 ## Folder Structure
 
-We used Featured based folder structure. (Layers data, domain and presentation) inside features.
+We used Featured based folder structure than layer based.
+
+Feature based -  Layers (Data , domain and presentation) insdie features.
+Layer based   -  Features inside layers. 
 
 **Data:** The data layer serves as a bridge between the domain layer and the presentation layer, supplying data through implementations of data sources, repositories, and models.
 
